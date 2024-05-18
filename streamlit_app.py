@@ -17,7 +17,7 @@ if uploaded_file is not None:
     img_bytes = img_bytes.getvalue()
 
     response = requests.post(
-        "http://127.0.0.1:5000/predict",
+        "https://glassornoglassclassifierapi.onrender.com/predict",
         files={"file": ("image.jpg", img_bytes, "image/jpeg")}
     )
 
