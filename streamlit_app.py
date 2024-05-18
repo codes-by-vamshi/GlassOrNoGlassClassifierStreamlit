@@ -9,7 +9,8 @@ uploaded_file = st.file_uploader("Choose an image...", type="jpg")
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file)
-    st.image(image, caption='Uploaded Image.', use_column_width=True)
+    resized_image =  image.resize((250,250))
+    st.image(resized_image, caption='Uploaded Image.')
 
     img_bytes = io.BytesIO()
     image.save(img_bytes, format='JPEG')
@@ -21,10 +22,7 @@ if uploaded_file is not None:
     )
 
     if response.status_code == 200:
-        prediction = response.json().get('prediction')
-        if prediction == 1:
-            st.write("Prediction: With Glasses")
-        else:
-            st.write("Prediction: Without Glasses")
+        prediction = response.json()['prediction']
+        st.write(f"Prediction: {prediction}")
     else:
         st.write("Error: ", response.json().get('error'))
